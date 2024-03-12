@@ -10,6 +10,7 @@
 import os
 import requests
 from dotenv import load_dotenv
+import math
 
 load_dotenv()
 from bip44 import Wallet
@@ -24,7 +25,7 @@ from web3.gas_strategies.time_based import medium_gas_price_strategy
 def generate_account():
     """Create a digital wallet and Ethereum account from a mnemonic seed phrase."""
     # Fetch mnemonic from environment variable.
-    mnemonic = os.getenv("MNEMONIC")
+    mnemonic = "imitate machine basic empty chest link hip awful agree spawn address amount"
 
     # Create Wallet Object
     wallet = Wallet(mnemonic)
@@ -54,6 +55,9 @@ def get_balance(w3, address):
 def send_transaction(w3, account, to, wage):
     """Send an authorized transaction to the Ganache blockchain."""
     # Set gas price strategy
+    block = w3.eth.get_block('latest')
+   # print(Web3.toInt(block.get('baseFeePerGas')))
+    next_gas_price = math.ceil((int(block.get('baseFeePerGas'), 16) * 1.251))
     w3.eth.setGasPriceStrategy(medium_gas_price_strategy)
 
     # Convert eth amount to Wei
@@ -71,7 +75,7 @@ def send_transaction(w3, account, to, wage):
         "from": account.address,
         "value": value,
         "gas": gasEstimate,
-        "gasPrice": 0,
+        "gasPrice": next_gas_price,
         "nonce": w3.eth.getTransactionCount(account.address),
     }
 

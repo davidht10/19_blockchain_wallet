@@ -90,7 +90,7 @@ from crypto_wallet import generate_account, get_balance, send_transaction
 candidate_database = {
     "Lane": [
         "Lane",
-        "0xFe0059BbdE78E4A81C5F3bE09220103455cD790b",
+        "0xE63442815d65bb6635c63C840fF1b9B70bA7d026",
         "4.3",
         0.20,
         "Images/lane.jpeg",
@@ -299,7 +299,7 @@ if st.sidebar.button("Send Transaction"):
     st.sidebar.markdown("#### Validated Transaction Hash")
 
     # Write the returned transaction hash to the screen
-    st.sidebar.write(transaction_hash)
+    st.sidebar.write(transaction)
 
     # Celebrate your successful payment
     st.balloons()
